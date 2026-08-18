@@ -1,0 +1,8 @@
+com\mycompany\bioparque\EstadoSalud.class
+com\mycompany\bioparque\Animal.class
+com\mycompany\bioparque\Mamifero.class
+com\mycompany\bioparque\Ave.class
+com\mycompany\bioparque\EstadoInventario.class
+com\mycompany\bioparque\Bioparque.class
+com\mycompany\bioparque\GestionarAnimal.class
+com\mycompany\bioparque\Reptil.class
