@@ -8,7 +8,7 @@ package com.mycompany.bioparque;
  *
  * @author Usuario
  */
-public class Ave extends Animal {
+public class Ave extends Animal implements Alimentable {
     private double envergadura;
     private boolean puedeVolar;
 
@@ -41,9 +41,24 @@ public class Ave extends Animal {
     }
 
     @Override
+    public String obtenerTipoAlimentacion() {
+        return "Granivora/insectivora: semillas, frutos e insectos pequenos";
+    }
+
+    @Override
+    public String emitirSonido() {
+        return "Canto o trino";
+    }
+
+    @Override
+    public double calcularRacionDiaria() {
+        return getPeso() * 0.10;
+    }
+
+    @Override
     public void mostrarInformacion() {
         super.mostrarInformacion();
         System.out.println("Envergadura: " + envergadura + " m");
-        System.out.println("Puede volar: " + (puedeVolar ? "Sí" : "No"));
+        System.out.println("Puede volar: " + (puedeVolar ? "Si" : "No"));
     }
 }

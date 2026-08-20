@@ -5,7 +5,10 @@
 package com.mycompany.bioparque;
 
 /**
-
+ * Clase abstracta que define el contrato y el comportamiento comun de todo
+ * animal del inventario. No puede instanciarse directamente: cada categoria
+ * concreta (Ave, Mamifero, Reptil) debe extenderla e implementar sus propias
+ * reglas de alimentacion y de comportamiento (metodos abstractos).
  *
  * @author Usuario
  */
@@ -60,6 +63,24 @@ public abstract class Animal {
     }
 
 
+
+    
+    public abstract String obtenerTipoAlimentacion();
+
+    
+    public abstract String emitirSonido();
+
+    public void cumplirAnios() {
+        this.edad++;
+    }
+
+   
+    public String resumenBasico() {
+        return "[" + codigo + "] " + nombre
+                + " - Categoria: " + this.getClass().getSimpleName()
+                + " - Estado: " + estadoInventario;
+    }
+
     public void actualizarPeso(double nuevoPeso) {
         if (nuevoPeso <= 0) {
             throw new IllegalArgumentException("El peso debe ser mayor a cero.");
@@ -67,7 +88,7 @@ public abstract class Animal {
         this.peso = nuevoPeso;
     }
 
-  
+
     public void trasladarHabitat(String nuevoHabitat) {
         if (nuevoHabitat == null || nuevoHabitat.isBlank()) {
             throw new IllegalArgumentException("El nuevo habitat es obligatorio.");
@@ -78,9 +99,6 @@ public abstract class Animal {
         this.habitat = nuevoHabitat;
     }
 
-    /**
-     * Pone al animal en observación (cuarentena) por motivos de salud.
-     */
     public void ponerEnObservacion() {
         if (estadoInventario == EstadoInventario.NO_DISPONIBLE) {
             throw new IllegalArgumentException("No se puede poner en observacion un animal retirado.");
@@ -150,5 +168,7 @@ public abstract class Animal {
         System.out.println("Estado de salud: " + estadoSalud);
         System.out.println("Estado de inventario: " + estadoInventario);
         System.out.println("Habitat: " + habitat);
+        System.out.println("Tipo de alimentacion: " + obtenerTipoAlimentacion());
+        System.out.println("Sonido caracteristico: " + emitirSonido());
     }
 }

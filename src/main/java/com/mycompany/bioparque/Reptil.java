@@ -8,7 +8,7 @@ package com.mycompany.bioparque;
  *
  * @author Usuario
  */
-public class Reptil extends Animal {
+public class Reptil extends Animal implements Alimentable {
 
     private String tipoEscamas;
 
@@ -35,6 +35,21 @@ public class Reptil extends Animal {
             throw new IllegalArgumentException("El tipo de escamas es obligatorio.");
         }
         this.tipoEscamas = tipoEscamas;
+    }
+
+    @Override
+    public String obtenerTipoAlimentacion() {
+        return "Carnivora ocasional: presas vivas o carne cada varios dias";
+    }
+
+    @Override
+    public String emitirSonido() {
+        return "Siseo";
+    }
+
+    @Override
+    public double calcularRacionDiaria() {
+        return getPeso() * 0.02;
     }
 
     @Override

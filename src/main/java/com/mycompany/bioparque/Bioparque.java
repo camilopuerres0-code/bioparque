@@ -13,6 +13,13 @@ import java.util.Scanner;
 public class Bioparque {
 
     public static void main(String[] args) {
+
+        // ===== EVIDENCIA: intento controlado de instanciar Animal =====
+        // Animal es abstract, por lo que esta linea NO compila.
+        // Error que arroja el compilador:
+        // "Animal is abstract; cannot be instantiated"
+        
+
         Scanner lector = new Scanner(System.in);
         GestionarAnimal inventario = new GestionarAnimal(lector);
 
@@ -25,6 +32,7 @@ public class Bioparque {
             System.out.println("3. Buscar animal");
             System.out.println("4. Actualizar animal");
             System.out.println("5. Eliminar animal");
+            System.out.println("6. Filtrar animales");
             System.out.println("0. Salir");
             System.out.println("============================");
             System.out.print("Seleccione una opcion: ");
@@ -56,6 +64,10 @@ public class Bioparque {
 
                 case 5:
                     inventario.eliminarDesdeConsola();
+                    break;
+
+                case 6:
+                    inventario.filtrarDesdeConsola();
                     break;
 
                 case 0:

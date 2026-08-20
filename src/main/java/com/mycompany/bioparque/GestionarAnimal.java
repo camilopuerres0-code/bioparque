@@ -128,8 +128,6 @@ public class GestionarAnimal {
         }
     }
 
-    // ===================== READ =====================
-
     public void listar() {
 
         if (animales.isEmpty()) {
@@ -231,7 +229,94 @@ public class GestionarAnimal {
         }
     }
 
-    // ===================== DELETE (opcion 5) =====================
+    
+    public void filtrarDesdeConsola() {
+
+        if (animales.isEmpty()) {
+            System.out.println("No hay animales registrados.");
+            return;
+        }
+
+        System.out.println("\n--- Filtrar animales ---");
+        System.out.println("1. Por categoria (Ave/Mamifero/Reptil)");
+        System.out.println("2. Por estado de inventario");
+        System.out.println("3. Por tipo de alimentacion (texto contenido)");
+        System.out.println("0. Cancelar");
+
+        int opcion = leerEntero("Seleccione una opcion: ");
+        ArrayList<Animal> resultado = new ArrayList<>();
+
+        switch (opcion) {
+            case 1: {
+                int categoria = leerEntero("Categoria (1-Ave 2-Mamifero 3-Reptil): ");
+                for (Animal animal : animales) {
+                    if ((categoria == 1 && animal instanceof Ave)
+                            || (categoria == 2 && animal instanceof Mamifero)
+                            || (categoria == 3 && animal instanceof Reptil)) {
+                        resultado.add(animal);
+                    }
+                }
+                break;
+            }
+            case 2: {
+                System.out.println("1. DISPONIBLE  2. NO_DISPONIBLE  3. EN_CUARENTENA");
+                int estadoOpcion = leerEntero("Seleccione el estado: ");
+                EstadoInventario estado = switch (estadoOpcion) {
+                    case 1 -> EstadoInventario.DISPONIBLE;
+                    case 2 -> EstadoInventario.NO_DISPONIBLE;
+                    case 3 -> EstadoInventario.EN_CUARENTENA;
+                    default -> null;
+                };
+                if (estado == null) {
+                    System.out.println("Opcion de estado no valida.");
+                    return;
+                }
+                for (Animal animal : animales) {
+                    if (animal.getEstadoInventario() == estado) {
+                        resultado.add(animal);
+                    }
+                }
+                break;
+            }
+            case 3: {
+                String texto = leerTexto("Ingrese un texto a buscar en el tipo de alimentacion: ");
+                for (Animal animal : animales) {
+                    if (animal.obtenerTipoAlimentacion().toLowerCase()
+                            .contains(texto.toLowerCase())) {
+                        resultado.add(animal);
+                    }
+                }
+                break;
+            }
+            case 0:
+                System.out.println("Filtro cancelado.");
+                return;
+            default:
+                System.out.println("Opcion fuera de rango.");
+                return;
+        }
+
+        mostrarResultadosFiltro(resultado);
+    }
+
+    private void mostrarResultadosFiltro(ArrayList<Animal> resultado) {
+        if (resultado.isEmpty()) {
+            System.out.println("Ningun animal cumple el filtro.");
+            return;
+        }
+
+        System.out.println("\n--- Resultado del filtro (" + resultado.size() + ") ---");
+        for (Animal animal : resultado) {
+            System.out.println(animal.resumenBasico());
+            System.out.println("  Tipo de alimentacion: " + animal.obtenerTipoAlimentacion());
+            if (animal instanceof Alimentable alimentable) {
+                System.out.printf("  Racion diaria estimada: %.2f kg%n",
+                        alimentable.calcularRacionDiaria());
+            }
+            System.out.println("------------------------");
+        }
+    }
+
 
     public void eliminarDesdeConsola() {
 

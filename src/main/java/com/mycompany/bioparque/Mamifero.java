@@ -8,7 +8,7 @@ package com.mycompany.bioparque;
  *
  * @author Usuario
  */
-public class Mamifero extends Animal {
+public class Mamifero extends Animal implements Alimentable {
     private String tipoPelaje;
 
     public Mamifero(String codigo, String nombre, int edad, double peso, String sexo,
@@ -32,6 +32,21 @@ public class Mamifero extends Animal {
             throw new IllegalArgumentException("El tipo de pelaje es obligatorio.");
         }
         this.tipoPelaje = tipoPelaje;
+    }
+
+    @Override
+    public String obtenerTipoAlimentacion() {
+        return "Dieta mixta: forraje, frutas y concentrado balanceado";
+    }
+
+    @Override
+    public String emitirSonido() {
+        return "Ruge o gruñe";
+    }
+
+    @Override
+    public double calcularRacionDiaria() {
+        return getPeso() * 0.03;
     }
 
     @Override
